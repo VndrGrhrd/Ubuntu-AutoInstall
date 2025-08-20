@@ -40,15 +40,14 @@ autoinstall:
     - curtin in-target --target=/target -- chown -R vandoir:vandoir /target/home/vandoir/.lv2
 
     # Cria o arquivo desktop
-    - |
-      cat >/target/usr/share/applications/ratatouille.desktop <<'EOF'
-      [Desktop Entry]
-      Version=1.0
-      Name=Ratatouille
-      Comment=LV2 Audio Plugin Host
-      Exec=/opt/Ratatouille*/Ratatouille*
-      Icon=audio-card
-      Terminal=false
-      Type=Application
-      Categories=AudioVideo;Audio;X-Jack;X-LV2;
-      EOF
+    - curtin in-target --target=/target -- bash -c "cat >/usr/share/applications/ratatouille.desktop <<'EOF'
+    [Desktop Entry]
+    Version=1.0
+    Name=Ratatouille
+    Comment=LV2 Audio Plugin Host
+    Exec=/opt/Ratatouille*/Ratatouille*
+    Icon=audio-card
+    Terminal=false
+    Type=Application
+    Categories=AudioVideo;Audio;X-Jack;X-LV2;
+    EOF"
