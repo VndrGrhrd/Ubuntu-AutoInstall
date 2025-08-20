@@ -22,33 +22,33 @@ autoinstall:
     - libcairo2-dev
     - libx11-dev
     - lv2-dev
-  user-data:
-    disable_root: false
   late-commands:
-    # Cria a pasta do usuário para LV2
-    - curtin in-target --target=/target -- mkdir -p /home/vandoir/.lv2
+    # Cria a pasta para LV2
+    - mkdir -p /target/home/vandoir/.lv2
+    - chown vandoir:vandoir /target/home/vandoir/.lv2
 
-    # Baixa os pacotes do Ratatouille do GitHub
-    - curtin in-target --target=/target -- bash -c "wget -qO /tmp/ratatouille.lv2.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-v0.9.11-linux-x86_64.tar.xz"
-    - curtin in-target --target=/target -- bash -c "wget -qO /tmp/ratatouille.app.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-app-v0.9.11-linux-x86_64.tar.xz"
+    # Baixa os pacotes do Ratatouille
+    - wget -O /target/tmp/ratatouille.lv2.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-vx.x.x-linux-x86_64.tar.xz
+    - wget -O /target/tmp/ratatouille.app.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-app-vx.x.x-linux-x86_64.tar.xz
 
     # Extrai para os diretórios corretos
-    - curtin in-target --target=/target -- tar -xJf /tmp/ratatouille.lv2.tar.xz -C /home/vandoir/.lv2
-    - curtin in-target --target=/target -- mkdir -p /opt
-    - curtin in-target --target=/target -- tar -xJf /tmp/ratatouille.app.tar.xz -C /opt
+    - tar -xJf /target/tmp/ratatouille.lv2.tar.xz -C /target/home/vandoir/.lv2
+    - mkdir -p /target/opt
+    - tar -xJf /target/tmp/ratatouille.app.tar.xz -C /target/opt
 
     # Ajusta permissões
-    - curtin in-target --target=/target -- chown -R vandoir:vandoir /home/vandoir/.lv2
+    - chown -R vandoir:vandoir /target/home/vandoir/.lv2
 
     # Cria o arquivo desktop
-    - curtin in-target --target=/target -- bash -c "cat >/usr/share/applications/ratatouille.desktop <<'EOF'
-[Desktop Entry]
-Version=1.0
-Name=Ratatouille
-Comment=LV2 Audio Plugin Host
-Exec=/opt/Ratatouille*/Ratatouille*
-Icon=audio-card
-Terminal=false
-Type=Application
-Categories=AudioVideo;Audio;X-Jack;X-LV2;
-EOF"
+    - |
+      cat >/target/usr/share/applications/ratatouille.desktop <<'EOF'
+      [Desktop Entry]
+      Version=1.0
+      Name=Ratatouille
+      Comment=LV2 Audio Plugin Host
+      Exec=/opt/Ratatouille*/Ratatouille*
+      Icon=audio-card
+      Terminal=false
+      Type=Application
+      Categories=AudioVideo;Audio;X-Jack;X-LV2;
+      EOF
