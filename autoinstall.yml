@@ -28,8 +28,8 @@ autoinstall:
     - chown vandoir:vandoir /target/home/vandoir/.lv2
 
     # Baixa os pacotes do Ratatouille
-    - wget -O /target/tmp/ratatouille.lv2.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-vx.x.x-linux-x86_64.tar.xz
-    - wget -O /target/tmp/ratatouille.app.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-app-vx.x.x-linux-x86_64.tar.xz
+    - wget -O /target/tmp/ratatouille.lv2.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-v0.9.11-linux-x86_64.tar.xz
+    - wget -O /target/tmp/ratatouille.app.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-app-v0.9.11-linux-x86_64.tar.xz
 
     # Extrai para os diretórios corretos
     - tar -xJf /target/tmp/ratatouille.lv2.tar.xz -C /target/home/vandoir/.lv2
