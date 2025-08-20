@@ -12,6 +12,7 @@ autoinstall:
     layout:
       name: lvm
   packages:
+    - curl
     - linux-lowlatency
     - pipewire
     - pipewire-audio-client-libraries
@@ -22,6 +23,8 @@ autoinstall:
     - libcairo2-dev
     - libx11-dev
     - lv2-dev
+    - flatpak
+    - gnome-software-plugin-flatpak
   late-commands:
     # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash"
@@ -29,3 +32,6 @@ autoinstall:
     # instala e configura o docker
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
     - curtin in-target --target=/target -- groupadd -f docker && usermod -aG docker vandoir
+
+    # install flatpack program
+    - curtin in-target --target=/target -- flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && flatpak install flathub com.google.Chrome && flatpak install flathub com.brave.Browser
