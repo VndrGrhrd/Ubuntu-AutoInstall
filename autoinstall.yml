@@ -24,10 +24,10 @@ autoinstall:
     - lv2-dev
   late-commands:
     # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
-    - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash
+    - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash"
     
     # instala o docker
-    - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash
+    - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
 
     # configuração docker pos-instalação
     - curtin in-target --target=/target -- usermod -aG docker vandoir
