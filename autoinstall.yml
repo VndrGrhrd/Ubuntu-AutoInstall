@@ -24,20 +24,20 @@ autoinstall:
     - lv2-dev
   late-commands:
     # Cria a pasta para LV2
-    - mkdir -p /target/home/vandoir/.lv2
-    - chown vandoir:vandoir /target/home/vandoir/.lv2
+    - curtin in-target --target=/target -- mkdir -p /target/home/vandoir/.lv2
+    - curtin in-target --target=/target -- chown vandoir:vandoir /target/home/vandoir/.lv2
 
     # Baixa os pacotes do Ratatouille
-    - wget -O /target/tmp/ratatouille.lv2.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-v0.9.11-linux-x86_64.tar.xz
-    - wget -O /target/tmp/ratatouille.app.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-app-v0.9.11-linux-x86_64.tar.xz
+    - curtin in-target --target=/target -- wget -O /target/tmp/ratatouille.lv2.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-v0.9.11-linux-x86_64.tar.xz
+    - curtin in-target --target=/target -- wget -O /target/tmp/ratatouille.app.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-app-v0.9.11-linux-x86_64.tar.xz
 
     # Extrai para os diretórios corretos
-    - tar -xJf /target/tmp/ratatouille.lv2.tar.xz -C /target/home/vandoir/.lv2
-    - mkdir -p /target/opt
-    - tar -xJf /target/tmp/ratatouille.app.tar.xz -C /target/opt
+    - curtin in-target --target=/target -- tar -xJf /target/tmp/ratatouille.lv2.tar.xz -C /target/home/vandoir/.lv2
+    - curtin in-target --target=/target -- mkdir -p /target/opt
+    - curtin in-target --target=/target -- tar -xJf /target/tmp/ratatouille.app.tar.xz -C /target/opt
 
     # Ajusta permissões
-    - chown -R vandoir:vandoir /target/home/vandoir/.lv2
+    - curtin in-target --target=/target -- chown -R vandoir:vandoir /target/home/vandoir/.lv2
 
     # Cria o arquivo desktop
     - |
