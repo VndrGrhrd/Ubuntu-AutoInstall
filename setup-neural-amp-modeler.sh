@@ -12,6 +12,7 @@ tar -xJf /tmp/ratatouille.lv2.tar.xz -C /home/vandoir/.lv2
 tar -xJf /tmp/ratatouille.app.tar.xz -C /opt
 
 # cria desktop
+mkdir -p /home/vandoir/.local/share/applications
 cat >/home/vandoir/.local/share/applications/ratatouille.desktop <<'EOF'
 [Desktop Entry]
 Version=1.0
