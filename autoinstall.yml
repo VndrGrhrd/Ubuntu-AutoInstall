@@ -34,4 +34,6 @@ autoinstall:
     - curtin in-target --target=/target -- groupadd -f docker && usermod -aG docker vandoir
 
     # install flatpack program
-    - curtin in-target --target=/target -- flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && flatpak install flathub com.google.Chrome && flatpak install flathub com.brave.Browser
+    - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
+    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.google.Chrome"
+    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.brave.Browser"
