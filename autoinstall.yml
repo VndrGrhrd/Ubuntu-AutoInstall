@@ -1,10 +1,10 @@
-#cloud-config
+#Ubuntu-autoInstall-setup
 autoinstall:
   version: 1
   identity:
     hostname: vbox
     username: vandoir
-    password: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/"   # use mkpasswd -m sha-512 1234
+    password: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/"   # use mkpasswd -m sha-512
   locale: pt_BR.UTF-8
   keyboard:
     layout: br
@@ -23,31 +23,8 @@ autoinstall:
     - libx11-dev
     - lv2-dev
   late-commands:
-    # Cria a pasta para LV2
-    - curtin in-target --target=/target -- mkdir -p /target/home/vandoir/.lv2
-    - curtin in-target --target=/target -- chown vandoir:vandoir /target/home/vandoir/.lv2
-
-    # Baixa os pacotes do Ratatouille
-    - curtin in-target --target=/target -- wget -O /target/tmp/ratatouille.lv2.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-v0.9.11-linux-x86_64.tar.xz
-    - curtin in-target --target=/target -- wget -O /target/tmp/ratatouille.app.tar.xz https://github.com/brummer10/Ratatouille.lv2/releases/latest/download/Ratatouille.lv2-app-v0.9.11-linux-x86_64.tar.xz
-
-    # Extrai para os diretórios corretos
-    - curtin in-target --target=/target -- tar -xJf /target/tmp/ratatouille.lv2.tar.xz -C /target/home/vandoir/.lv2
-    - curtin in-target --target=/target -- mkdir -p /target/opt
-    - curtin in-target --target=/target -- tar -xJf /target/tmp/ratatouille.app.tar.xz -C /target/opt
-
-    # Ajusta permissões
-    - curtin in-target --target=/target -- chown -R vandoir:vandoir /target/home/vandoir/.lv2
-
-    # Cria o arquivo desktop
-    - curtin in-target --target=/target -- bash -c "cat >/usr/share/applications/ratatouille.desktop <<'EOF'
-    [Desktop Entry]
-    Version=1.0
-    Name=Ratatouille
-    Comment=LV2 Audio Plugin Host
-    Exec=/opt/Ratatouille*/Ratatouille*
-    Icon=audio-card
-    Terminal=false
-    Type=Application
-    Categories=AudioVideo;Audio;X-Jack;X-LV2;
-    EOF"
+    # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
+    - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash
+    
+    # instala o docker
+    - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash
