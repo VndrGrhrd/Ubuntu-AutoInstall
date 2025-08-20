@@ -33,7 +33,12 @@ autoinstall:
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
     - curtin in-target --target=/target -- groupadd -f docker && usermod -aG docker vandoir
 
-    # install flatpack program
+    # Instalar programas extras
     - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
     - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.google.Chrome"
     - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.brave.Browser"
+    - curtin in-target --target=/target -- sh -c "flatpak install -y it.mijorus.gearlever"
+    - curtin in-target --target=/target -- sh -c "flatpak install -y com.github.tchx84.Flatseal"
+    - curtin in-target --target=/target -- sh -c "flatpak install -y rest.insomnia.Insomnia"
+    - curtin in-target --target=/target -- sh -c "snap install code --classic"
+
