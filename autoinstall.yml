@@ -12,6 +12,15 @@ autoinstall:
     hostname: vbox
     username: vandoir
     password: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/" # use mkpasswd -m sha-512 1234
+  users:
+    name: vandoir
+    realname: "Vandoir Gerhard"
+    shell: /bin/bash
+    primary_group: vandoir
+    groups: [rpa, adm, cdrom, sudo, dip, plugdev, users, kvm, lpadmin, docker, libvirt]
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+    passwd: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/"
   locale: pt_BR.UTF-8
   timezone: "America/Sao_Paulo"
   keyboard:
