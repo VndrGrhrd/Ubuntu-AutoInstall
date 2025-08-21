@@ -1,17 +1,23 @@
 #cloud-config
 autoinstall:
   version: 1
+  updates: all
+  shutdown: reboot
   drivers:
     install: true
   codecs:
     install: true
   identity:
+    realname: "Vandoir Gerhard"
     hostname: vbox
     username: vandoir
-    password: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/"   # use mkpasswd -m sha-512 1234
+    password: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/" # use mkpasswd -m sha-512 1234
   locale: pt_BR.UTF-8
+  timezone: "America/Sao_Paulo"
   keyboard:
-    layout: br
+    layout: "br"
+    variant: "abnt2"
+    toggle: null
   storage:
     layout:
       name: lvm
@@ -32,7 +38,7 @@ autoinstall:
   late-commands:
     # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash"
-    
+
     # instala e configura o docker
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
     # - curtin in-target --target=/target -- bash -c "getent group docker || groupadd docker; usermod -aG docker vandoir"
@@ -45,4 +51,3 @@ autoinstall:
     - curtin in-target --target=/target -- sh -c "flatpak install -y com.github.tchx84.Flatseal"
     - curtin in-target --target=/target -- sh -c "flatpak install -y rest.insomnia.Insomnia"
     - curtin in-target --target=/target -- sh -c "snap install code --classic"
-
