@@ -34,6 +34,13 @@ autoinstall:
     - libx11-dev
     - lv2-dev
     - flatpak
+    - ibus
+    - ibus-gtk
+    - ibus-gtk3
+    - language-pack-pt
+    - language-pack-pt-base
+    - language-pack-gnome-pt
+    - language-pack-gnome-pt-base
     - gnome-software-plugin-flatpak
   late-commands:
     # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
