@@ -58,6 +58,14 @@ autoinstall:
     - language-pack-gnome-pt
     - language-pack-gnome-pt-base
     - gnome-software-plugin-flatpak
+    - qemu-kvm
+    - libvirt-daemon-system
+    - libvirt-clients
+    - virtinst
+    - bridge-utils
+    - virt-manager
+    - ovmf
+    - cpu-checker
   # Comandos / Configurações extras para o usuário
   late-commands:
     # Corrige propriedade da pasta do usuario
