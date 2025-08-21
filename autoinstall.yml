@@ -2,7 +2,7 @@
 autoinstall:
   version: 1
   updates: all # Instalar todas as atualizações já na instalação
-  shutdown: reboot # Auto reboot ao finalizar instalação
+  shutdown: shutdown # Desliga após finalizar instalação
   # Instalar drives de Terceiros
   drivers:
     install: true
