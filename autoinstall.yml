@@ -31,7 +31,7 @@ autoinstall:
     
     # instala e configura o docker
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
-    - curtin in-target --target=/target -- groupadd -f docker && usermod -aG docker vandoir
+    - curtin in-target --target=/target -- bash -c "getent group docker || groupadd docker; usermod -aG docker vandoir"
 
     # Instalar programas extras
     - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
