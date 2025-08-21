@@ -60,6 +60,8 @@ autoinstall:
     - gnome-software-plugin-flatpak
   # Comandos / Configurações extras para o usuário
   late-commands:
+    # Corrige propriedade da pasta do usuario
+    - curtin in-target --target=/target -- chown -R vandoir:vandoir /home/vandoir
     # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash"
 
