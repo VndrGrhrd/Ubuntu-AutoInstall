@@ -16,8 +16,6 @@ autoinstall:
   timezone: "America/Sao_Paulo"
   keyboard:
     layout: "br"
-    variant: "abnt2"
-    toggle: null
   storage:
     layout:
       name: lvm
