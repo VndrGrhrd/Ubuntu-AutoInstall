@@ -66,16 +66,17 @@ autoinstall:
     - virt-manager
     - ovmf
     - cpu-checker
+  # Configurações extras executadas no primeiro boot
+  runcmd:
+    - [ chown, -R, vandoir:vandoir, /home/vandoir ]
+    - [ usermod, -aG, docker, vandoir ]
   # Comandos / Configurações extras para o usuário
   late-commands:
-    # Corrige propriedade da pasta do usuario
-    - curtin in-target --target=/target -- chown -R vandoir:vandoir /home/vandoir
     # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash"
 
     # instala e configura o docker
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
-    # - curtin in-target --target=/target -- bash -c "getent group docker || groupadd docker; usermod -aG docker vandoir"
 
     # Instalar programas extras Flatpack / snaps
     - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
@@ -84,4 +85,6 @@ autoinstall:
     - curtin in-target --target=/target -- sh -c "flatpak install -y it.mijorus.gearlever"
     - curtin in-target --target=/target -- sh -c "flatpak install -y com.github.tchx84.Flatseal"
     - curtin in-target --target=/target -- sh -c "flatpak install -y rest.insomnia.Insomnia"
-    - curtin in-target --target=/target -- sh -c "snap install code --classic"
+    - curtin in-target --target=/target -- sh -c "flatpak install -y com.visualstudio.code"
+    - curtin in-target --target=/target -- sh -c "flatpak install -y com.sublimetext.three"
+    
