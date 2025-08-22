@@ -79,8 +79,8 @@ autoinstall:
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
       # Instala o NodeJS LTS via nodeSource
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://deb.nodesource.com/setup_lts.x | bash"
-      # Adiciona o repositório do flathub
-    - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
+      # Adiciona o repositório do flathub e app flatpak
+    - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/flatpak_app_install.sh | bash"
 
   user-data: # Configurações executadas no primeiro boot do sistema instalado.
     package_update: false # Não atualizar pacotes nesse momento.
@@ -90,12 +90,3 @@ autoinstall:
     runcmd:
       - [chown, -R, vandoir:vandoir, /home/vandoir] # Corrige permissões do diretório home.
       - [usermod, -aG, docker, vandoir] # Adiciona o usuário ao grupo docker.
-        # Abaixo: instalação de aplicativos Flatpak para o usuário.
-      - flatpak install -y --noninteractive --system flathub com.google.Chrome
-      - flatpak install -y --noninteractive --system flathub com.brave.Browser
-      - flatpak install -y --noninteractive --system flathub org.onlyoffice.desktopeditors
-      - flatpak install -y --noninteractive --system flathub it.mijorus.gearlever
-      - flatpak install -y --noninteractive --system flathub com.github.tchx84.Flatseal
-      - flatpak install -y --noninteractive --system flathub rest.insomnia.Insomnia
-      - flatpak install -y --noninteractive --system flathub com.visualstudio.code
-      - flatpak install -y --noninteractive --system flathub com.sublimetext.three
