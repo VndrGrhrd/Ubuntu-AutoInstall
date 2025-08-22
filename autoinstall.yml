@@ -21,7 +21,20 @@ autoinstall:
     realname: "Vandoir Gerhard"
     shell: /bin/bash
     primary_group: vandoir
-    groups: [rpa, adm, cdrom, sudo, dip, plugdev, users, kvm, lpadmin, docker, libvirt]
+    groups:
+      [
+        rpa,
+        adm,
+        cdrom,
+        sudo,
+        dip,
+        plugdev,
+        users,
+        kvm,
+        lpadmin,
+        docker,
+        libvirt,
+      ]
     sudo: ALL=(ALL) NOPASSWD:ALL
     lock_passwd: false
     passwd: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/"
@@ -68,8 +81,17 @@ autoinstall:
     - cpu-checker
   # Configurações extras executadas no primeiro boot
   runcmd:
-    - [ chown, -R, vandoir:vandoir, /home/vandoir ]
-    - [ usermod, -aG, docker, vandoir ]
+    - [chown, -R, vandoir:vandoir, /home/vandoir]
+    - [usermod, -aG, docker, vandoir]
+    - sudo -u vandoir flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    - sudo -u vandoir flatpak install -y flathub com.google.Chrome
+    - sudo -u vandoir flatpak install -y flathub com.brave.Browser
+    - sudo -u vandoir flatpak install -y flathub org.onlyoffice.desktopeditors
+    - sudo -u vandoir flatpak install -y flathub it.mijorus.gearlever
+    - sudo -u vandoir flatpak install -y flathub com.github.tchx84.Flatseal
+    - sudo -u vandoir flatpak install -y flathub rest.insomnia.Insomnia
+    - sudo -u vandoir flatpak install -y flathub com.visualstudio.code
+    - sudo -u vandoir flatpak install -y flathub com.sublimetext.three
   # Comandos / Configurações extras para o usuário
   late-commands:
     # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
@@ -77,15 +99,3 @@ autoinstall:
 
     # instala e configura o docker
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
-
-    # Instalar programas extras Flatpack / snaps
-    - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.google.Chrome"
-    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.brave.Browser"
-    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub org.onlyoffice.desktopeditors"
-    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub it.mijorus.gearlever"
-    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.github.tchx84.Flatseal"
-    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub rest.insomnia.Insomnia"
-    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.visualstudio.code"
-    - curtin in-target --target=/target -- sh -c "flatpak install -y flathub com.sublimetext.three"
-    
