@@ -61,13 +61,13 @@ autoinstall:
     - wireplumber # Gerenciador de sessão Pipewire.
     - pavucontrol # Interface gráfica para controle de volume.
     - flatpak # Sistema de pacotes universais.
-    # - ibus # Suporte a métodos de entrada (teclados multilíngues).
-    # - ibus-gtk
-    # - ibus-gtk3
-    # - language-pack-pt
-    # - language-pack-pt-base
-    # - language-pack-gnome-pt
-    # - language-pack-gnome-pt-base
+    - ibus # Suporte a métodos de entrada (teclados multilíngues).
+    - ibus-gtk
+    - ibus-gtk3
+    - language-pack-pt
+    - language-pack-pt-base
+    - language-pack-gnome-pt
+    - language-pack-gnome-pt-base
     - qemu-kvm # Virtualização via KVM.
     - libvirt-daemon-system
     - libvirt-clients
@@ -101,11 +101,10 @@ autoinstall:
       classic: true
     - name: chromium
 
-  # user-data: # Configurações executadas no primeiro boot do sistema instalado.
-  #   package_update: false # Não atualizar pacotes nesse momento.
-  #   package_upgrade:
-  #     false # Não atualizar o sistema nesse momento.
-  #     # Comandos executados no primeiro boot.
-  #   runcmd:
-  #     - [chown, -R, vandoir:vandoir, /home/vandoir] # Corrige permissões do diretório home.
-  #     - [usermod, -aG, docker, vandoir] # Adiciona o usuário ao grupo docker.
+  user-data: # Configurações executadas no primeiro boot do sistema instalado.
+    package_update: false # Não atualizar pacotes nesse momento.
+    package_upgrade: false # Não atualizar o sistema nesse momento.
+      # Comandos executados no primeiro boot.
+    runcmd:
+      - [chown, -R, vandoir:vandoir, /home/vandoir] # Corrige permissões do diretório home.
+      - [usermod, -aG, docker, vandoir] # Adiciona o usuário ao grupo docker.
