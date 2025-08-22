@@ -1,28 +1,29 @@
 #cloud-config
 autoinstall:
-  version: 1
-  updates: all # Instalar todas as atualizações já na instalação
-  shutdown: poweroff # Desliga após finalizar instalação
-  # Instalar drives de Terceiros
-  drivers:
-    install: true
-  # Instalar Codex de Terceiros (mp3, mp4...)
-  codecs:
-    install: true
-  # Indentificação básica do usuário para a instalação
-  identity:
-    realname: "Vandoir Gerhard"
-    hostname: vbox
-    username: vandoir
-    password: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/" # use mkpasswd -m sha-512 1234
+  version: 1 # Define a versão do esquema de autoinstalação utilizado.
 
-  # Informação completa do usuário
-  users:
-    name: vandoir
-    realname: "Vandoir Gerhard"
-    shell: /bin/bash
-    primary_group: vandoir
-    groups:
+  updates: all # Durante a instalação, aplicar todas as atualizações disponíveis do sistema.
+
+  shutdown: poweroff # Após o término da instalação, desligar a máquina automaticamente.
+
+  drivers:
+    install: true # Instala drivers de terceiros automaticamente (útil para placas de vídeo, Wi-Fi, etc).
+
+  codecs:
+    install: true # Instala codecs de mídia de terceiros (para suporte a formatos como mp3, mp4, etc).
+
+  identity: # Informações básicas de identidade do sistema e do usuário administrador.
+    realname: "Vandoir Gerhard" # Nome completo do usuário principal.
+    hostname: vbox # Nome do host da máquina.
+    username: vandoir # Nome de usuário do sistema.
+    password: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/" # Senha criptografada do usuário (gerada com `mkpasswd -m sha-512`).
+
+  users: # Configuração detalhada do usuário principal.
+    name: vandoir # Nome de usuário.
+    realname: "Vandoir Gerhard" # Nome completo.
+    shell: /bin/bash # Shell padrão do usuário.
+    primary_group: vandoir # Grupo primário do usuário.
+    groups: # Grupos adicionais aos quais o usuário pertence.
       [
         rpa,
         adm,
@@ -36,70 +37,65 @@ autoinstall:
         docker,
         libvirt,
       ]
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    lock_passwd: false
-    passwd: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/"
-  # Idioma da interface
-  locale: pt_BR.UTF-8
-  # Fuzo-Horario
-  timezone: "America/Sao_Paulo"
-  # Teclado do Usuário
-  keyboard:
-    layout: "br"
-  # Configuração de armazenamento
+    sudo: ALL=(ALL) NOPASSWD:ALL # Permissões de sudo sem necessidade de senha.
+    lock_passwd: false # Habilita o uso de senha (não bloqueada).
+    passwd: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/" # Senha criptografada (mesma da identidade acima).
+
+  locale: pt_BR.UTF-8 # Define o idioma e formatação regional para Português do Brasil.
+
+  timezone: "America/Sao_Paulo" # Fuso horário configurado para São Paulo.
+
+  keyboard: # Configuração do layout do teclado.
+    layout: "br" # Teclado padrão ABNT2 (brasileiro).
+
   storage:
     layout:
-      name: lvm
-  # Pacotes extras para instalar
-  packages:
-    - curl
-    - linux-lowlatency
-    - pipewire
+      name: lvm # Utiliza LVM (Logical Volume Manager) para o particionamento automático do disco.
+
+  packages: # Lista de pacotes adicionais a serem instalados durante o processo de autoinstalação.
+    - curl # Utilitário para transferências HTTP.
+    - linux-lowlatency # Kernel otimizado para baixa latência (ideal para produção musical e áudio).
+    - pipewire # Servidor de mídia moderno para áudio e vídeo.
     - pipewire-audio-client-libraries
     - pipewire-jack
-    - wireplumber
-    - pavucontrol
-    - libsndfile1-dev
-    - libcairo2-dev
-    - libx11-dev
-    - lv2-dev
-    - flatpak
-    - ibus
-    - ibus-gtk
-    - ibus-gtk3
-    - language-pack-pt
-    - language-pack-pt-base
-    - language-pack-gnome-pt
-    - language-pack-gnome-pt-base
-    - gnome-software-plugin-flatpak
-    - qemu-kvm
+    - wireplumber # Gerenciador de sessão Pipewire.
+    - pavucontrol # Interface gráfica para controle de volume.
+    - flatpak # Sistema de pacotes universais.
+    - qemu-kvm # Virtualização via KVM.
     - libvirt-daemon-system
     - libvirt-clients
     - virtinst
     - bridge-utils
-    - virt-manager
-    - ovmf
-    - cpu-checker
-  # Comandos / Configurações extras para o usuário
-  late-commands:
-    # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
+    - virt-manager # Interface gráfica para gerenciar VMs.
+    - ovmf # Suporte a UEFI para VMs.
+    - cpu-checker # Verifica suporte à virtualização no processador.
+    - gnome-boxes # Programa utilitário para VMs
+    - gnome-software-plugin-flatpak # Integração do Flatpak ao GNOME Software.
+
+  late-commands: # Comandos executados no final da instalação, mas ainda no ambiente de instalação.
+      # Instala o Ratatuille.vl2 para o NAM (Neural Amp Modeler), diretamente do repositório do GitHub.
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash"
-    # instala e configura o docker
+      # Instala o Docker usando o script oficial da Docker Inc.
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
-    # Adiciona o repositório do flathub
+      # Instala o NodeJS LTS via nodeSource
+    - curtin in-target --target=/target -- bash -c "curl -fsSL https://deb.nodesource.com/setup_lts.x | bash"
+      # Adiciona o repositório do flathub
     - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-  user-data:
-    package_update: false
-    package_upgrade: false
-    # Configurações extras executadas no primeiro boot
+
+  user-data: # Configurações executadas no primeiro boot do sistema instalado.
+    package_update: false # Não atualizar pacotes nesse momento.
+    package_upgrade:
+      false # Não atualizar o sistema nesse momento.
+      # Comandos executados no primeiro boot.
     runcmd:
-      - [chown, -R, vandoir:vandoir, /home/vandoir]
-      - [usermod, -aG, docker, vandoir]
-      - sudo -u vandoir flatpak install -y --noninteractive flathub com.google.Chrome
-      - sudo -u vandoir flatpak install -y --noninteractive flathub com.brave.Browser
-      - sudo -u vandoir flatpak install -y --noninteractive flathub org.onlyoffice.desktopeditors
-      - sudo -u vandoir flatpak install -y --noninteractive flathub it.mijorus.gearlever
-      - sudo -u vandoir flatpak install -y --noninteractive flathub com.github.tchx84.Flatseal
-      - sudo -u vandoir flatpak install -y --noninteractive flathub rest.insomnia.Insomnia
-      - sudo -u vandoir flatpak install -y --noninteractive flathub com.visualstudio.code
-      - sudo -u vandoir flatpak install -y --noninteractive flathub com.sublimetext.three
+      - [chown, -R, vandoir:vandoir, /home/vandoir] # Corrige permissões do diretório home.
+      - [usermod, -aG, docker, vandoir] # Adiciona o usuário ao grupo docker.
+        # Abaixo: instalação de aplicativos Flatpak para o usuário.
+      - flatpak install -y --noninteractive --system flathub com.google.Chrome
+      - flatpak install -y --noninteractive --system flathub com.brave.Browser
+      - flatpak install -y --noninteractive --system flathub org.onlyoffice.desktopeditors
+      - flatpak install -y --noninteractive --system flathub it.mijorus.gearlever
+      - flatpak install -y --noninteractive --system flathub com.github.tchx84.Flatseal
+      - flatpak install -y --noninteractive --system flathub rest.insomnia.Insomnia
+      - flatpak install -y --noninteractive --system flathub com.visualstudio.code
+      - flatpak install -y --noninteractive --system flathub com.sublimetext.three
