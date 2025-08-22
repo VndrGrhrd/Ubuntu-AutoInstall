@@ -61,13 +61,13 @@ autoinstall:
     - wireplumber # Gerenciador de sessão Pipewire.
     - pavucontrol # Interface gráfica para controle de volume.
     - flatpak # Sistema de pacotes universais.
-    - ibus # Suporte a métodos de entrada (teclados multilíngues).
-    - ibus-gtk
-    - ibus-gtk3
-    - language-pack-pt
-    - language-pack-pt-base
-    - language-pack-gnome-pt
-    - language-pack-gnome-pt-base
+    # - ibus # Suporte a métodos de entrada (teclados multilíngues).
+    # - ibus-gtk
+    # - ibus-gtk3
+    # - language-pack-pt
+    # - language-pack-pt-base
+    # - language-pack-gnome-pt
+    # - language-pack-gnome-pt-base
     - qemu-kvm # Virtualização via KVM.
     - libvirt-daemon-system
     - libvirt-clients
