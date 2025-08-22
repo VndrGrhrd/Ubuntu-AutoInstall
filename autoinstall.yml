@@ -84,22 +84,22 @@ autoinstall:
   late-commands:
     # Instala Ratatuille.vl2 para NAM (Neural Amp Modeler)
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash"
-
     # instala e configura o docker
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
-    # Configurações extras executadas no primeiro boot
+    # Adiciona o repositório do flathub
+    - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
   user-data:
     package_update: false
     package_upgrade: false
+    # Configurações extras executadas no primeiro boot
     runcmd:
       - [chown, -R, vandoir:vandoir, /home/vandoir]
       - [usermod, -aG, docker, vandoir]
-      - sudo -u vandoir flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-      - sudo -u vandoir flatpak install -y flathub com.google.Chrome
-      - sudo -u vandoir flatpak install -y flathub com.brave.Browser
-      - sudo -u vandoir flatpak install -y flathub org.onlyoffice.desktopeditors
-      - sudo -u vandoir flatpak install -y flathub it.mijorus.gearlever
-      - sudo -u vandoir flatpak install -y flathub com.github.tchx84.Flatseal
-      - sudo -u vandoir flatpak install -y flathub rest.insomnia.Insomnia
-      - sudo -u vandoir flatpak install -y flathub com.visualstudio.code
-      - sudo -u vandoir flatpak install -y flathub com.sublimetext.three
+      - sudo -u vandoir flatpak install -y --noninteractive flathub com.google.Chrome
+      - sudo -u vandoir flatpak install -y --noninteractive flathub com.brave.Browser
+      - sudo -u vandoir flatpak install -y --noninteractive flathub org.onlyoffice.desktopeditors
+      - sudo -u vandoir flatpak install -y --noninteractive flathub it.mijorus.gearlever
+      - sudo -u vandoir flatpak install -y --noninteractive flathub com.github.tchx84.Flatseal
+      - sudo -u vandoir flatpak install -y --noninteractive flathub rest.insomnia.Insomnia
+      - sudo -u vandoir flatpak install -y --noninteractive flathub com.visualstudio.code
+      - sudo -u vandoir flatpak install -y --noninteractive flathub com.sublimetext.three
