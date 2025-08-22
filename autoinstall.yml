@@ -87,7 +87,7 @@ autoinstall:
       # Instala o NodeJS LTS via nodeSource
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://deb.nodesource.com/setup_lts.x | bash"
       # Adiciona o repositório do flathub e app flatpak
-    - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/flatpak_app_install.sh | bash"
+    # - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/flatpak_app_install.sh | bash"
 
   user-data: # Configurações executadas no primeiro boot do sistema instalado.
     package_update: false # Não atualizar pacotes nesse momento.
