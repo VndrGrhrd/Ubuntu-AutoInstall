@@ -61,7 +61,7 @@ autoinstall:
     - wireplumber # Gerenciador de sessão Pipewire.
     - pavucontrol # Interface gráfica para controle de volume.
     - flatpak # Sistema de pacotes universais.
-    - ibus  # Suporte a métodos de entrada (teclados multilíngues).
+    - ibus # Suporte a métodos de entrada (teclados multilíngues).
     - ibus-gtk
     - ibus-gtk3
     - language-pack-pt
@@ -80,20 +80,32 @@ autoinstall:
     - gnome-software-plugin-flatpak # Integração do Flatpak ao GNOME Software.
 
   late-commands: # Comandos executados no final da instalação, mas ainda no ambiente de instalação.
-      # Instala o Ratatuille.vl2 para o NAM (Neural Amp Modeler), diretamente do repositório do GitHub.
+    # Instala o Ratatuille.vl2 para o NAM (Neural Amp Modeler), diretamente do repositório do GitHub.
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/setup-neural-amp-modeler.sh | bash"
       # Instala o Docker usando o script oficial da Docker Inc.
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://get.docker.com/ | bash"
       # Instala o NodeJS LTS via nodeSource
     - curtin in-target --target=/target -- bash -c "curl -fsSL https://deb.nodesource.com/setup_lts.x | bash"
-      # Adiciona o repositório do flathub e app flatpak
+      # Adiciona o repositório do flathub
+    - curtin in-target --target=/target -- sh -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
     # - curtin in-target --target=/target -- bash -c "curl -fsSL https://raw.githubusercontent.com/VndrGrhrd/Ubuntu-AutoInstall/refs/heads/main/flatpak_app_install.sh | bash"
+  snaps:
+    - name: brave
+    - name: onlyoffice-desktopeditors
+    - name: gearlever
+    - name: flatseal
+    - name: insomnia
+    - name: code
+      classic: true
+    - name: sublime-text
+      classic: true
+    - name: chromium
 
-  user-data: # Configurações executadas no primeiro boot do sistema instalado.
-    package_update: false # Não atualizar pacotes nesse momento.
-    package_upgrade:
-      false # Não atualizar o sistema nesse momento.
-      # Comandos executados no primeiro boot.
-    runcmd:
-      - [chown, -R, vandoir:vandoir, /home/vandoir] # Corrige permissões do diretório home.
-      - [usermod, -aG, docker, vandoir] # Adiciona o usuário ao grupo docker.
+  # user-data: # Configurações executadas no primeiro boot do sistema instalado.
+  #   package_update: false # Não atualizar pacotes nesse momento.
+  #   package_upgrade:
+  #     false # Não atualizar o sistema nesse momento.
+  #     # Comandos executados no primeiro boot.
+  #   runcmd:
+  #     - [chown, -R, vandoir:vandoir, /home/vandoir] # Corrige permissões do diretório home.
+  #     - [usermod, -aG, docker, vandoir] # Adiciona o usuário ao grupo docker.
