@@ -18,28 +18,28 @@ autoinstall:
     username: vandoir # Nome de usuário do sistema.
     password: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/" # Senha criptografada do usuário (gerada com `mkpasswd -m sha-512`).
 
-  users: # Configuração detalhada do usuário principal.
-    name: vandoir # Nome de usuário.
-    realname: "Vandoir Gerhard" # Nome completo.
-    shell: /bin/bash # Shell padrão do usuário.
-    primary_group: vandoir # Grupo primário do usuário.
-    groups: # Grupos adicionais aos quais o usuário pertence.
-      [
-        rpa,
-        adm,
-        cdrom,
-        sudo,
-        dip,
-        plugdev,
-        users,
-        kvm,
-        lpadmin,
-        docker,
-        libvirt,
-      ]
-    sudo: ALL=(ALL) NOPASSWD:ALL # Permissões de sudo sem necessidade de senha.
-    lock_passwd: false # Habilita o uso de senha (não bloqueada).
-    passwd: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/" # Senha criptografada (mesma da identidade acima).
+  # users: # Configuração detalhada do usuário principal.
+  #   name: vandoir # Nome de usuário.
+  #   realname: "Vandoir Gerhard" # Nome completo.
+  #   shell: /bin/bash # Shell padrão do usuário.
+  #   primary_group: vandoir # Grupo primário do usuário.
+  #   groups: # Grupos adicionais aos quais o usuário pertence.
+  #     [
+  #       rpa,
+  #       adm,
+  #       cdrom,
+  #       sudo,
+  #       dip,
+  #       plugdev,
+  #       users,
+  #       kvm,
+  #       lpadmin,
+  #       docker,
+  #       libvirt,
+  #     ]
+  #   sudo: ALL=(ALL) NOPASSWD:ALL # Permissões de sudo sem necessidade de senha.
+  #   lock_passwd: false # Habilita o uso de senha (não bloqueada).
+  #   passwd: "$6$LMe/g3WMDrPmF7ot$iUPiuNqSg/lBTagAzXpZG.upUJyckHHSF7eQvkeUpbYw7dgJYf/yiphV8U8bB19h9FhuFPksND.vvzcmKz/yo/" # Senha criptografada (mesma da identidade acima).
 
   locale: pt_BR.UTF-8 # Define o idioma e formatação regional para Português do Brasil.
 
@@ -61,13 +61,13 @@ autoinstall:
     - wireplumber # Gerenciador de sessão Pipewire.
     - pavucontrol # Interface gráfica para controle de volume.
     - flatpak # Sistema de pacotes universais.
-    - ibus # Suporte a métodos de entrada (teclados multilíngues).
-    - ibus-gtk
-    - ibus-gtk3
-    - language-pack-pt
-    - language-pack-pt-base
-    - language-pack-gnome-pt
-    - language-pack-gnome-pt-base
+    # - ibus # Suporte a métodos de entrada (teclados multilíngues).
+    # - ibus-gtk
+    # - ibus-gtk3
+    # - language-pack-pt
+    # - language-pack-pt-base
+    # - language-pack-gnome-pt
+    # - language-pack-gnome-pt-base
     - qemu-kvm # Virtualização via KVM.
     - libvirt-daemon-system
     - libvirt-clients
